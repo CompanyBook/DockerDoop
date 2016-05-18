@@ -15,9 +15,9 @@ blueprintHostMappingFile=$(awk -F "=" '/blueprintHostMappingFile/ {print $2}' $i
 ambariServerContainerName="$(awk -F "=" '/ambariServerHostName/ {print $2}' $iniFile).$clusterName"
 ambariServerInternalIP=$(docker inspect --format "{{ .NetworkSettings.Networks.$clusterName.IPAddress }}" $ambariServerContainerName)
 
-curl --user admin:admin -H 'X-Requested-By:HortonworksUniversity' -X PUT http://$ambariServerInternalIP:8080/api/v1/stacks/HDP/versions/2.3/operating_systems/redhat6/repositories/HDP-2.3 \
-        -d "{\"Repositories\":{\"base_url\":\"http://$ambariServerInternalIP/hdp/HDP-2.3.4.0/\",\"verify_base_url\":true}}"
-curl --user admin:admin -H 'X-Requested-By:HortonworksUniverity' -X PUT http://$ambariServerInternalIP:8080/api/v1/stacks/HDP/versions/2.3/operating_systems/redhat6/repositories/HDP-UTILS-1.1.0.20 \
+curl --user admin:admin -H 'X-Requested-By:HortonworksUniversity' -X PUT http://$ambariServerInternalIP:8080/api/v1/stacks/HDP/versions/2.4/operating_systems/redhat6/repositories/HDP-2.4 \
+        -d "{\"Repositories\":{\"base_url\":\"http://$ambariServerInternalIP/hdp/HDP-2.4.0.0/\",\"verify_base_url\":true}}"
+curl --user admin:admin -H 'X-Requested-By:HortonworksUniverity' -X PUT http://$ambariServerInternalIP:8080/api/v1/stacks/HDP/versions/2.4/operating_systems/redhat6/repositories/HDP-UTILS-1.1.0.20 \
         -d "{\"Repositories\":{\"base_url\":\"http://$ambariServerInternalIP/hdp/HDP-UTILS-1.1.0.20/\",\"verify_base_url\":true}}"
 
 curl --user admin:admin -H 'X-Requested-By:HortonworksUniverity' -X POST http://$ambariServerInternalIP:8080/api/v1/blueprints/$blueprintName -d @$blueprintFile
