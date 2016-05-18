@@ -30,6 +30,10 @@
                 {"name" : "NIMBUS"},
                 {"name" : "WEBHCAT_SERVER"},
                 {"name" : "STORM_UI_SERVER"},
+		{"name" : "HBASE_REGIONSERVER"},
+		{"name" : "HBASE_MASTER"},
+		{"name" : "HBASE_CLIENT"},
+		{"name" : "KAFKA_BROKER"},
 
                 {"name" : "METRICS_MONITOR"},
 
