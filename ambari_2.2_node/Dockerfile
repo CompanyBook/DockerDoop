@@ -8,8 +8,8 @@ RUN yum -y install openssh-server openssh-clients unzip ntp wget yum-priorities 
 # sudo is needed to run the Hadoop binaries
 #RUN yum -y install sudo bind-utils zip
 
-# Configure the Ambari Repository for 2.2.0.0
-RUN wget http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.2.0.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
+# Configure the Ambari Repository for 2.2.1.0
+RUN wget http://public-repo-1.hortonworks.com/ambari/centos6/2.x/updates/2.2.1.0/ambari.repo -O /etc/yum.repos.d/ambari.repo
 
 # Copy scripts and config files onto new container
 RUN mkdir /root/scripts && mkdir /root/conf && mkdir /root/start-scripts
