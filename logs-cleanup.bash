@@ -1,9 +1,14 @@
 #!/bin/bash
 
-CONTAINERID='2ef9290c69d2'
-docker exec $CONTAINERID du -h /var/log/hbase
-docker exec $CONTAINERID rm /var/log/hbase/gc.log-201607190854
+CONTAINERID='namenode.singlenode'
+docker exec $CONTAINERID du -h /var/log
+gcs=`docker exec $CONTAINERID find /var/log/hbase/ -name "gc.log*"`
+docker exec $CONTAINERID rm -f $gcs
 docker exec $CONTAINERID rm /var/log/hbase/SecurityAuth.audit
 docker exec $CONTAINERID rm /var/log/hbase/hbase-hbase-master-namenode.log
 docker exec $CONTAINERID rm /var/log/hbase/hbase-hbase-regionserver-namenode.log
-docker exec $CONTAINERID du -h /var/log/hbase
+docker exec $CONTAINERID rm -rf /hadoop/yarn/log/
+gcs=`docker exec $CONTAINERID find /var/log/hadoop/hdfs/ -name "*"`
+echo $gcs
+docker exec $CONTAINERID rm -f $gcs
+docker exec $CONTAINERID du -h /var/log
