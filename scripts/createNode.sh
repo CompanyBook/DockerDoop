@@ -11,6 +11,7 @@ clusterName="$3"
 
 portParams=""
 
+
 if [[ -n $4 ]]; then
     externalIP="$4"
 
@@ -35,7 +36,7 @@ if [ $? -ne 0 ]; then
     echo "Created network for $clusterName"
 fi
 
-containerName="$nodeName.$clusterName"
+containerName="$nodeName.$clusterName$CONTAINER_POSTFIX"
 
 if [ $nodeName != $ambariServerHostName ]; then
     echo "Creating Ambari agent node: $nodeName. Ambari server: $ambariServerHostName"
@@ -51,7 +52,7 @@ if [ $nodeName != $ambariServerHostName ]; then
                 --dns-search=$clusterName \
                 --restart unless-stopped \
                 -i \
-                -t hwxu/ambari_2.2_agent_node
+                -t ${AGENT_NODE_IMAGE:-hwxu/ambari_2.2_agent_node}
 else
     echo "Creating Ambari server node: $nodeName"
 
@@ -66,7 +67,7 @@ else
                 --dns-search=$clusterName \
                 --restart unless-stopped \
                 -i \
-                -t hwxu/ambari_2.2_server_node
+                -t ${SERVER_NODE_IMAGE:-hwxu/ambari_2.2_server_node}
 fi
 
 internalIP=$(docker inspect --format "{{ .NetworkSettings.Networks.$clusterName.IPAddress }}" $containerName)
