@@ -2,7 +2,16 @@
 POSTFIX=${1:-2}
 IMAGE=${2:-companybookbuild-002.servers.prgn.misp.co.uk:5000/singlenode-hdp}
 
-CONTAINER_POSTFIX=$POSTFIX SERVER_NODE_IMAGE=singlenode-hdp ./scripts/createCluster.sh singlenode-sample.ini
+
+HOST=$(echo "$IMAGE" | sed 's/\/.*//')
+sudo mkdir -p "/etc/docker/certs.d/$HOST"
+sudo cp ca.crt "/etc/docker/certs.d/$HOST/"
+echo "/etc/docker/certs.d/$HOST/ca.crt"
+sudo security add-trusted-cert -d -r trustRoot -k /Library/Keychains/System.keychain ca.crt
+
+docker pull $IMAGE
+
+CONTAINER_POSTFIX=$POSTFIX SERVER_NODE_IMAGE=$IMAGE ./scripts/createCluster.sh singlenode-sample.ini
 
 sleep 60
 
