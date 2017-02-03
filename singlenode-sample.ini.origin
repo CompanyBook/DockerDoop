@@ -1,7 +1,7 @@
 clusterName=singlenode
 ambariServerHostName=namenode
 hostNames=namenode
-externalIPs=192.168.200.62
+externalIPs=localhost
 
 blueprintName=singlenode
 blueprintFile=blueprints/singlenode/singlenode.blueprint
